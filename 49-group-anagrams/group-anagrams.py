@@ -1,10 +1,14 @@
 class Solution:
     def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
-        anagram_map = {}
+        anagram_map = defaultdict(list)
 
         for item in strs:
-            item_sorted = str(sorted(item.lower()))
+            count = [0] * 26
 
-            anagram_map.setdefault(item_sorted, []).append(item)
+            for c in item:
+                i = ord(c) - ord("a")
+                count[i] += 1
+
+            anagram_map[tuple(count)].append(item)
 
         return list(anagram_map.values())
